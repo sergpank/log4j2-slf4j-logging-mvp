@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="pattern">%d{ISO8601} %5p %c{1}:%L %m%n</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}" />
+        </Console>
+
+        <RollingRandomAccessFile name="FILE"
+                                 fileName="log/app.log"
+                                 filePattern="log/app.%d{yyyy-MM-dd_HH-mm-ss}.log"
+                                 append="true"
+                                 bufferSize="1024"
+                                 immediateFlush="true">
+            <PatternLayout pattern="${pattern}" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <AsyncRoot level="info">
+            <AppenderRef ref="STDOUT" />
+            <AppenderRef ref="FILE" />
+        </AsyncRoot>
+    </Loggers>
+</Configuration>
